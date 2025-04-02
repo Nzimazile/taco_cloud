@@ -47,8 +47,8 @@ public class DesignTacoController {
 
     }
 
-    @ModelAttribute(name="tacoOrdrer")
-    public TacoOrder order(){
+    @ModelAttribute(name = "tacoOrdrer")
+    public TacoOrder tacoOrder(){
         return new TacoOrder();
     }
 
@@ -60,13 +60,17 @@ public class DesignTacoController {
     
 
     @GetMapping 
-    public String showDesignForm()
+    public String showDesignForm( Model model)
     {
+        if (!model.containsAttribute("tacoOrder")) {
+            model.addAttribute("tacoOrder", new TacoOrder());
+        }
+        
         return "design";
     }
 
     @PostMapping
-    public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder){
+    public String processTaco( @ModelAttribute TacoOrder tacoOrder, @ModelAttribute Taco taco){
               tacoOrder.addTaco(taco);
               log.info("Processing taco: {}", taco);
               return "redirect:/orders/current";

@@ -9,6 +9,7 @@ xmlns:th="http:/ /www.thymeleaf.org">
     <h1>Design your taco!</h1>
     <img th:src="@{/images/TacoCloud.png}"/>
     <form method="POST" th:object="${taco}">
+        <input type="hidden" th:field="*{tacoOrder}" />
     <div class="grid">
     <div class="ingredient-group" id="wraps">
     <h3>Designate your wrap:</h3>
