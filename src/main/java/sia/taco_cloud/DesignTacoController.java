@@ -21,7 +21,7 @@ import sia.taco_cloud.Taco;
 @Slf4j
 @Controller
 @RequestMapping("/design")
-@SessionAttributes("tacoOrder")
+@SessionAttributes("TacoOrder")
 public class DesignTacoController {
 
     @ModelAttribute
@@ -47,12 +47,12 @@ public class DesignTacoController {
 
     }
 
-    @ModelAttribute(name = "tacoOrdrer")
+    @ModelAttribute("TacoOrder")
     public TacoOrder tacoOrder(){
         return new TacoOrder();
     }
 
-    @ModelAttribute(name= "taco")
+    @ModelAttribute("taco")
     public Taco taco()
     {
         return new Taco();
@@ -62,9 +62,6 @@ public class DesignTacoController {
     @GetMapping 
     public String showDesignForm( Model model)
     {
-        if (!model.containsAttribute("tacoOrder")) {
-            model.addAttribute("tacoOrder", new TacoOrder());
-        }
         
         return "design";
     }
@@ -72,8 +69,9 @@ public class DesignTacoController {
     @PostMapping
     public String processTaco( @ModelAttribute TacoOrder tacoOrder, @ModelAttribute Taco taco){
               tacoOrder.addTaco(taco);
+              log.info("Taco Instance: {}", tacoOrder.tacos.get(0));
               log.info("Processing taco: {}", taco);
-              return "redirect:/orders/current";
+              return "redirect:/orders/Current";
     }
 
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type)

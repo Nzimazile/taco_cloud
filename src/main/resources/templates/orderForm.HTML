@@ -6,13 +6,13 @@ xmlns:th="http:/ /www.thymeleaf.org">
 <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
-<form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
+<form method="POST" th:action="@{/orders}" th:object="${TacoOrder}">
 <h1>Order your taco creations!</h1>
 <img th:src="@{/images/TacoCloud.png}"/>
 <h3>Your tacos in this order:</h3>
 <a th:href="@{/design}" id="another">Design another taco</a><br/>
 <ul>
-<li th:each="taco : ${tacoOrder.tacos}">
+<li th:each="taco : ${TacoOrder.tacos}">
 <span th:text="${taco.name}">taco name</span></li>
 </ul>
 <h3>Deliver my taco masterpieces to...</h3>
@@ -24,9 +24,6 @@ xmlns:th="http:/ /www.thymeleaf.org">
 <br/>
 <label for="deliveryCity">City: </label>
 <input type="text" th:field="*{deliveryCity}"/>
-<br/>
-<label for="deliveryState">State: </label>
-<input type="text" th:field="*{deliveryState}"/>
 <br/>
 <label for="deliveryZip">Zip code: </label>
 <input type="text" th:field="*{deliveryZip}"/>
