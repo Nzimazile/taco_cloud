@@ -1,17 +1,18 @@
 package sia.taco_cloud;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import sia.taco_cloud.Ingredient;
 import sia.taco_cloud.Ingredient.Type;
@@ -67,9 +68,11 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processTaco( @ModelAttribute TacoOrder tacoOrder, @ModelAttribute Taco taco){
+    public String processTaco( @ModelAttribute TacoOrder tacoOrder, @Valid Taco taco, Errors errors ){
+        if (errors.hasErrors()) {
+            return "design";
+        }
               tacoOrder.addTaco(taco);
-              log.info("Taco Instance: {}", tacoOrder.tacos.get(0));
               log.info("Processing taco: {}", taco);
               return "redirect:/orders/Current";
     }
