@@ -3,6 +3,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -27,13 +28,14 @@ public class OrderController {
  }  
 
  @PostMapping
- public String processOrder(@ModelAttribute @Valid TacoOrder order, Errors errors2 ,SessionStatus sessionStatus){
+ public String processOrder( @Valid @ModelAttribute("TacoOrder")  TacoOrder order, Errors errors2 ,SessionStatus sessionStatus,BindingResult result){
    if (errors2.hasErrors()) {
+      result.getAllErrors().forEach(error -> log.info("Error Type: {}", error));
     return "orderForm";
      }
     log.info("Order Submitted: {}", order);
     sessionStatus.setComplete();
-    return "forward:/";
+    return "redirect:/";
  }
     
 }
