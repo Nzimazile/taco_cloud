@@ -3,8 +3,6 @@ package sia.taco_cloud;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,7 +25,6 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
 
-    @Autowired
     public DesignTacoController(
         IngredientRepository ingredientRepo) {
         this.ingredientRepo = ingredientRepo;
